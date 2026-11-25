@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Badrul (Ben) | hur-studio (Design 02: Botanical Ink)</title>
+  <style>
+    :root {
+      --bg: #f6f3eb;
+      --sage: #eaefe8;
+      --paper: #fcfaf4;
+      --ink: #15241d;
+      --muted: #42564b;
+      --line: #d4d8cc;
+      --accent: #9c4221;
+      --accent-ink: #ffffff;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.68;
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 18.5rem minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside.rail {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 2.5rem 2rem;
+      background: var(--sage);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .rail-brand img { height: 48px; width: auto; display: block; margin-bottom: 1rem; }
+    .rail-brand h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.45rem;
+    }
+    .rail-brand p {
+      margin: 0.35rem 0 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .rail-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin: 2rem 0;
+    }
+    .rail-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.55rem 0;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      font-size: 0.94rem;
+      transition: color 150ms ease;
+    }
+    .rail-nav a:hover { color: var(--accent); }
+
+    .rail-meta {
+      font-size: 0.83rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 1.25rem;
+    }
+    .rail-meta a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .rail-meta a:hover { text-decoration: underline; }
+
+    main.folio {
+      padding: clamp(2.5rem, 6vw, 4.75rem) clamp(1.5rem, 6vw, 4.5rem);
+      max-width: 56rem;
+    }
+
+    .intro-block {
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin: 0 0 0.9rem;
+    }
+    .intro-block h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 4vw, 2.85rem);
+      line-height: 1.2;
+      margin: 0 0 1.25rem;
+    }
+    .intro-block p {
+      color: var(--muted);
+      font-size: 1.03rem;
+      max-width: 42rem;
+      margin: 0 0 1.75rem;
+    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0.6rem 1.3rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-outline { border: 1px solid var(--muted); color: var(--ink); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .folio-sec {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .folio-sec h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.55rem;
+      margin: 0 0 1.5rem;
+    }
+
+    .work-entry {
+      padding: 1.4rem 1.6rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .work-entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+    .work-entry h4 { margin: 0; font-size: 1.08rem; }
+    .work-entry code { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+    .work-entry p { margin: 0 0 0.65rem; color: var(--muted); font-size: 0.94rem; }
+    .work-entry a { color: var(--accent); font-weight: 600; font-size: 0.88rem; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.75rem;
+    }
+    .note-box {
+      padding: 1.35rem;
+      background: var(--sage);
+      border-radius: 4px;
+    }
+    .note-box h4 { margin: 0 0 0.4rem; font-size: 1rem; }
+    .note-box p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+    @media (max-width: 56rem) {
+      .layout { grid-template-columns: 1fr; }
+      aside.rail {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 1rem; margin: 1.25rem 0; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="rail">
+      <div>
+        <div class="rail-brand">
+          <img src="assets/hur-mark-dark.png" alt="hur-studio emblem">
+          <h1>Badrul (Ben)</h1>
+          <p>hur-studio · Create, Inspire, Share</p>
+        </div>
+        <nav class="rail-nav" aria-label="Section navigation">
+          <a href="#about">Overview</a>
+          <a href="#projects">Engineering Work</a>
+          <a href="#services">Commercial Services</a>
+          <a href="#community">Community Apps</a>
+          <a href="index.html">All 5 designs</a>
+        </nav>
+      </div>
+      <div class="rail-meta">
+        <div>Malaysia (UTC+8)</div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://www.linkedin.com/in/benhisham/" target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+          <a href="https://github.com/ben-kodbiz" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </aside>
+
+    <main class="folio">
+      <section class="intro-block" id="about">
+        <p class="kicker">INDEPENDENT CLOUD &amp; INFRASTRUCTURE ENGINEER</p>
+        <h2>Grounded engineering for Linux, cloud infrastructure, and open-source tools.</h2>
+        <p>
+          With more than 20 years in technology, I help teams build and maintain calm, predictable infrastructure across Linux, AWS, OpenStack, CloudStack, and containers. Outside client work, I craft lightweight static web applications and run local AI labs on consumer hardware.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://www.linkedin.com/in/benhisham/" target="_blank" rel="noopener noreferrer">Start a conversation</a>
+          <a class="btn btn-outline" href="https://github.com/ben-kodbiz" target="_blank" rel="noopener noreferrer">Browse GitHub</a>
+        </div>
+      </section>
+
+      <section class="folio-sec" id="projects">
+        <h3>Selected Engineering Repositories</h3>
+        <article class="work-entry">
+          <div class="work-entry-head">
+            <h4>openstack-homelab</h4>
+            <code>Zsh · KVM/libvirt · Docker · Kolla-Ansible</code>
+          </div>
+          <p>Idempotent OpenStack 2026.1 lab running Keystone, Glance, Nova, Neutron, Horizon, MariaDB, RabbitMQ, and Memcached on a single Ubuntu workstation.</p>
+          <a href="https://github.com/ben-kodbiz/openstack-homelab" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+
+        <article class="work-entry">
+          <div class="work-entry-head">
+            <h4>k3s_homelab</h4>
+            <code>Shell · K3s · Cilium · kubeadm · KVM</code>
+          </div>
+          <p>Controlled KVM resource overhead experiment comparing K3s + Cilium against raw kubeadm Kubernetes clusters.</p>
+          <a href="https://github.com/ben-kodbiz/k3s_homelab" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+
+        <article class="work-entry">
+          <div class="work-entry-head">
+            <h4>qlora-lab (IC-project)</h4>
+            <code>Python · QLoRA · Qwen3.5-4B · YAML</code>
+          </div>
+          <p>YAML-driven 4-bit QLoRA supervised fine-tuning framework on an RTX 3060 12GB, designed for transparent DevOps-style workflows.</p>
+          <a href="https://github.com/ben-kodbiz/IC-project" target="_blank" rel="noopener noreferrer">View repository</a>
+        </article>
+
+        <article class="work-entry">
+          <div class="work-entry-head">
+            <h4>mindweaver &amp; tadabbur-yt</h4>
+            <code>Python · SQLite · OCR · RAG · Qwen</code>
+          </div>
+          <p>Local-first knowledge base with citation-grounded RAG (mindweaver) and deterministic-first media ingestion pipeline backed by SQLite (tadabbur-yt).</p>
+          <a href="https://github.com/ben-kodbiz/mindweaver" target="_blank" rel="noopener noreferrer">mindweaver</a> ·
+          <a href="https://github.com/ben-kodbiz/tadabbur-yt" target="_blank" rel="noopener noreferrer">tadabbur-yt</a>
+        </article>
+      </section>
+
+      <section class="folio-sec" id="services">
+        <h3>Commercial Services</h3>
+        <div class="two-col">
+          <div class="note-box">
+            <h4>Linux &amp; AWS Infrastructure</h4>
+            <p>Server administration, security hardening, performance troubleshooting, AWS architecture, and practical automation.</p>
+          </div>
+          <div class="note-box">
+            <h4>OpenStack &amp; CloudStack</h4>
+            <p>Private cloud deployment, KVM/libvirt host engineering, Kolla-Ansible workflows, and multi-node operations.</p>
+          </div>
+          <div class="note-box">
+            <h4>Containers &amp; Orchestration</h4>
+            <p>Docker, Kubernetes, K3s, Cilium networking, deployment pipelines, and cluster diagnostics.</p>
+          </div>
+          <div class="note-box">
+            <h4>Lightweight Open-Source Tools</h4>
+            <p>Maintainable static web platforms and Python/SQLite utilities without unnecessary framework overhead.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="folio-sec" id="community" style="border-bottom:none;">
+        <h3>Community &amp; Educational Projects</h3>
+        <p style="color:var(--muted);margin-top:0;">
+          Independent educational apps hosted openly on GitHub Pages:
+          <a href="https://ben-kodbiz.github.io/masjidperlis/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">masjidperlis</a>,
+          <a href="https://ben-kodbiz.github.io/learnclassic/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">learnclassic</a>,
+          <a href="https://ben-kodbiz.github.io/quranlingo/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">quranlingo</a>, and
+          <a href="https://github.com/ben-kodbiz/ilman" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">ilman</a>.
+        </p>
+        <p style="font-size:0.84rem;color:var(--muted);margin-top:2rem;">Design 02: Botanical Ink · Badrul (Ben) / hur-studio</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
